@@ -153,7 +153,7 @@ export default function Gallery() {
               </div>
             </div>
             <div className="media-content111">
-              <h3 className="imagename111">{item.name}</h3>
+              <h5 className="imagename111">{item.name}</h5>
               <p className="imagedescription111">{item.description}</p>
             </div>
           </div>

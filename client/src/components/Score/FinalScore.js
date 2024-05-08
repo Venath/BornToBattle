@@ -38,7 +38,7 @@ export default function FinalScore() {
     useEffect(()=>{
         const timer = setTimeout(()=>{
             setDisableUpdateButton(true);
-        },6000);
+        },10000);
         return ()=> clearTimeout(timer);
     },[]);
 

@@ -202,6 +202,11 @@ const UserProfile = () => {
           Add Score
         </button>
       </div>
+      <div className="col-md-6 text-left" style={{ marginTop: '20px' }}>
+        <button className="btn btn-danger" onClick={() => { window.location.href = '/finalscoresheet'; }}>
+          Update Score
+        </button>
+      </div>
     </div>
   );
   

@@ -3,7 +3,7 @@ import axios from "axios";
 import "../styles/req.css";
 
 export default function RequestForm() {
-  const [fname, setFName] = useState(" ");
+  const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
   const [email, setEmail] = useState("");
   const [address1, setAddress1] = useState("");
@@ -12,9 +12,16 @@ export default function RequestForm() {
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
   const addContent = (e) => {
     e.preventDefault();
+
+    // Validate form fields
+    if (!fname.trim() || !lname.trim() || !email.trim() || !address1.trim() || !city.trim() || !state.trim() || !zip.trim() || !description.trim()) {
+      setError("Please fill in all fields.");
+      return;
+    }
 
     const requestform = {
       fname,
@@ -26,7 +33,6 @@ export default function RequestForm() {
       state,
       zip,
       description,
-
     }
 
     axios
@@ -65,6 +71,7 @@ export default function RequestForm() {
                 className="form-control"
                 placeholder="First name"
                 id="fname"
+                value={fname}
                 onChange={(e) => setFName(e.target.value)}
               />
             </div>
@@ -77,6 +84,7 @@ export default function RequestForm() {
                 className="form-control"
                 placeholder="Last name"
                 id="lname"
+                value={lname}
                 onChange={(e) => setLName(e.target.value)}
               />
             </div>
@@ -91,6 +99,7 @@ export default function RequestForm() {
                 className="form-control"
                 placeholder="Email"
                 id="email"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -104,6 +113,7 @@ export default function RequestForm() {
               className="form-control"
               id="address1"
               placeholder="1234 Main St"
+              value={address1}
               onChange={(e) => setAddress1(e.target.value)}
             />
           </div>
@@ -116,6 +126,7 @@ export default function RequestForm() {
               className="form-control"
               id="address2"
               placeholder="Apartment, studio, or floor"
+              value={address2}
               onChange={(e) => setAddress2(e.target.value)}
             />
           </div>
@@ -128,6 +139,7 @@ export default function RequestForm() {
                 type="text"
                 className="form-control"
                 id="city"
+                value={city}
                 onChange={(e) => setCity(e.target.value)}
               />
             </div>
@@ -139,6 +151,7 @@ export default function RequestForm() {
                 type="text"
                 className="form-control"
                 id="state"
+                value={state}
                 onChange={(e) => setState(e.target.value)}
               />
             </div>
@@ -150,6 +163,7 @@ export default function RequestForm() {
                 type="text"
                 className="form-control"
                 id="zip"
+                value={zip}
                 onChange={(e) => setZip(e.target.value)}
               />
             </div>
@@ -162,12 +176,14 @@ export default function RequestForm() {
               className="form-control"
               id="description"
               rows="3"
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
           <button type="submit" className="custom-but" id="submit">
             Submit
           </button>
+          {error && <div className="error">{error}</div>}
         </form>
       </div>
     </div>
