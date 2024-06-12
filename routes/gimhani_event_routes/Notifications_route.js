@@ -36,7 +36,7 @@ router.post('/notif/save', (req, res)=>{
               });
           });
 
-          router.delete('/notif/delete/:id', (req, res) => {
+ router.delete('/notif/delete/:id', (req, res) => {
             Notifications.findByIdAndDelete(req.params.id)
                 .then(() => {
                     return res.status(200).json({
@@ -49,6 +49,31 @@ router.post('/notif/save', (req, res)=>{
                     });
                 });
         });
+
+        router.delete('/notif/tdelete/:tid', (req, res) => {
+            const { tid } = req.params;
+            Notifications.findOneAndDelete({ topicId: tid })
+                .then((deletedNotification) => {
+                    if (!deletedNotification) {
+                        console.log("Notification not found for deletion");
+                        return res.status(404).json({
+                            error: "Notification not found"
+                        });
+                    }
+                    console.log("Notification deleted successfully:", deletedNotification);
+                    return res.status(200).json({
+                        success: "Notification deleted successfully"
+                    });
+                })
+                .catch(err => {
+                    console.error("Error deleting notification:", err);
+                    return res.status(400).json({
+                        error: err
+                    });
+                });
+        });
+        
+        
 
 
 module.exports = router;

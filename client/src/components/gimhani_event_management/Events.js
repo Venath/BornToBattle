@@ -59,12 +59,18 @@ const Events = () => {
 
   const onDelete = (id) => {
     axios.delete(`http://localhost:8020/event/delete/${id}`).then((res) => {
-      
-      
-      alert("Deleted successfully");
-      retrieveEvents();
+      localStorage.removeItem('Ltext');
+      localStorage.removeItem('Ltopic');
+      const lid = localStorage.getItem('LtopicId');
+      console.log("id",lid)
+      axios.delete(`/notif/tdelete/${lid}`).then((res) => {
+        localStorage.removeItem('LtopicId');
+        alert("Deleted successfully");
+        retrieveEvents();
+      });
     });
   }
+  
 
   const onCatDelete = (id) => {
     axios.delete(`http://localhost:8020/cat/delete/${id}`).then((res) => {
